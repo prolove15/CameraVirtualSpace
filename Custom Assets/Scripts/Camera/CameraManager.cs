@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Evereal.VideoCapture;
+using System.IO;
 
 public class CameraManager : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class CameraManager : MonoBehaviour
     #region fields
 
     //-------------------------------------------------- SerializeField
+    [SerializeField]
+    string filePath;
 
     //-------------------------------------------------- public fields
     public GameState_En gameState;
@@ -73,7 +76,7 @@ public class CameraManager : MonoBehaviour
     //-------------------------------------------------- Start is called before the first frame update
     void Start()
     {
-        
+        filePath = Path.Combine(Path.GetDirectoryName(Application.dataPath), "Captures");
     }
 
     //////////////////////////////////////////////////////////////////////
@@ -132,6 +135,29 @@ public class CameraManager : MonoBehaviour
         cameraPlayers.Remove(cameraPlayer_Cp_pr);
 
         videoManager_Cp.videoCaptures.Remove(cameraPlayer_Cp_pr.GetComponentInChildren<VideoCapture>());
+    }
+
+    //--------------------------------------------------
+    public void OnStartShooting()
+    {
+        // 
+        List<string> cameraTransformTexts = new List<string>();
+        for(int i = 0; i < cameraPlayers.Count; i++)
+        {
+            Vector3 camPos_tp = cameraPlayers[i].transform.position;
+            Vector3 camRot_tp = cameraPlayers[i].transform.rotation.eulerAngles;
+            cameraTransformTexts.Add("カメラ " + (i + 1).ToString() + ": 位置-> " + camPos_tp.ToString()
+                + "; 回転-> " + camRot_tp.ToString());
+        }
+        
+        // 
+        File.WriteAllLines(Path.Combine(filePath, GetFileName()), cameraTransformTexts.ToArray());
+    }
+
+    //--------------------------------------------------
+    string GetFileName()
+    {
+        return "data_" + System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".txt";
     }
 
 }

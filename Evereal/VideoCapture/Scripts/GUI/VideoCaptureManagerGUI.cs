@@ -1,5 +1,7 @@
 ﻿/* Copyright (c) 2019-present Evereal. All rights reserved. */
 
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +12,8 @@ namespace Evereal.VideoCapture
     public class VideoCaptureManagerGUI : MonoBehaviour
     {
 
+        CameraManager camManager_Cp;
+
         // SerializeField
         [SerializeField]
         Button recordStartBtn_Cp;
@@ -18,7 +22,7 @@ namespace Evereal.VideoCapture
         Button recordStopBtn_Cp;
 
         [SerializeField]
-        Transform description_Tf;
+        GameObject description_GO;
 
         [SerializeField]
         Text descriptionText_Cp;
@@ -47,6 +51,18 @@ namespace Evereal.VideoCapture
                 videoCapture.OnComplete -= HandleCaptureComplete;
                 videoCapture.OnError -= HandleCaptureError;
             }
+        }
+
+        void Start()
+        {
+            // 
+            camManager_Cp = GameObject.FindWithTag("GameController").GetComponent<Controller>()
+                .cameraManager_Cp;
+
+            // 
+            description_GO.SetActive(false);
+            recordStartBtn_Cp.interactable = true;
+            recordStopBtn_Cp.interactable = false;
         }
 
         private void HandleCaptureComplete(object sender, CaptureCompleteEventArgs args)
@@ -126,8 +142,12 @@ namespace Evereal.VideoCapture
             }
 
             recordStartBtn_Cp.interactable = false;
+            
             recordStopBtn_Cp.interactable = true;
-            StartCoroutine(SetDescription("started"));
+
+            StartCoroutine(SetDescription("撮影が始まりました"));
+
+            camManager_Cp.OnStartShooting();
 
             videoCaptureManager.StartCapture();
         }
@@ -141,7 +161,7 @@ namespace Evereal.VideoCapture
 
             recordStopBtn_Cp.interactable = false;
             recordStartBtn_Cp.interactable = true;
-            StartCoroutine(SetDescription("finished"));
+            StartCoroutine(SetDescription("撮影が終了しました"));
 
             videoCaptureManager.StopCapture();
         }
@@ -149,11 +169,12 @@ namespace Evereal.VideoCapture
         IEnumerator SetDescription(string value)
         {
             descriptionText_Cp.text = value;
-            description_Tf.SetActive(true);
+            description_GO.SetActive(true);
 
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(6f);
 
-            description_Tf.SetActive(false);
+            description_GO.SetActive(false);
+            
             descriptionText_Cp.text = string.Empty;
         }
 
