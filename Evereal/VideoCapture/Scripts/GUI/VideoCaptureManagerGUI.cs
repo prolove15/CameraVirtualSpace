@@ -9,6 +9,20 @@ namespace Evereal.VideoCapture
     [RequireComponent(typeof(VideoCaptureManager))]
     public class VideoCaptureManagerGUI : MonoBehaviour
     {
+
+        // SerializeField
+        [SerializeField]
+        Button recordStartBtn_Cp;
+
+        [SerializeField]
+        Button recordStopBtn_Cp;
+
+        [SerializeField]
+        Transform description_Tf;
+
+        [SerializeField]
+        Text descriptionText_Cp;
+
         private VideoCaptureManager videoCaptureManager;
 
         private void Awake()
@@ -111,6 +125,10 @@ namespace Evereal.VideoCapture
                 return;
             }
 
+            recordStartBtn_Cp.interactable = false;
+            recordStopBtn_Cp.interactable = true;
+            StartCoroutine(SetDescription("started"));
+
             videoCaptureManager.StartCapture();
         }
 
@@ -121,7 +139,22 @@ namespace Evereal.VideoCapture
                 return;
             }
 
+            recordStopBtn_Cp.interactable = false;
+            recordStartBtn_Cp.interactable = true;
+            StartCoroutine(SetDescription("finished"));
+
             videoCaptureManager.StopCapture();
+        }
+
+        IEnumerator SetDescription(string value)
+        {
+            descriptionText_Cp.text = value;
+            description_Tf.SetActive(true);
+
+            yield return new WaitForSeconds(3f);
+
+            description_Tf.SetActive(false);
+            descriptionText_Cp.text = string.Empty;
         }
 
         public void OnClick_CancelCapture()

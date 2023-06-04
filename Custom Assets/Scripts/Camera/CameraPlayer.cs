@@ -10,11 +10,6 @@ public class CameraPlayer : MonoBehaviour
     //////////////////////////////////////////////////////////////////////
     #region types
     
-    public enum GameState_En
-    {
-        Nothing, Inited
-    }
-
     #endregion
 
     //////////////////////////////////////////////////////////////////////
@@ -23,14 +18,17 @@ public class CameraPlayer : MonoBehaviour
     #region fields
 
     //-------------------------------------------------- SerializeField
+    [SerializeField]
+    bool isBall;
 
     //-------------------------------------------------- public fields
-    public GameState_En gameState;
 
     //-------------------------------------------------- private fields
     Controller controller_Cp;
 
     CameraManager cameraManager_Cp;
+
+    TransformInspector transformInspector_Cp;
 
     #endregion
 
@@ -54,34 +52,40 @@ public class CameraPlayer : MonoBehaviour
     {
         controller_Cp = GameObject.FindWithTag("GameController").GetComponent<Controller>();
         cameraManager_Cp = controller_Cp.cameraManager_Cp;
+        transformInspector_Cp = controller_Cp.transformInspector_Cp;
 
-        cameraManager_Cp.OnCreateCamera(this);
+        if(!isBall)
+        {
+            cameraManager_Cp.OnCreateCamera(this);
+        }
     }
-
-    //////////////////////////////////////////////////////////////////////
-    // Init
-    //////////////////////////////////////////////////////////////////////
-    #region Init
-
-    //-------------------------------------------------- Init
-    public void Init()
-    {
-
-        gameState = GameState_En.Inited;
-    }
-
-    #endregion
 
     //--------------------------------------------------
     public void OnSelectCamera()
     {
         cameraManager_Cp.OnSelectCamera(this);
+
+        transformInspector_Cp.OnSelectTransform(transform);
     }
 
     //--------------------------------------------------
     public void OnDeselectCamera()
     {
         cameraManager_Cp.OnDeselectCamera();
+        
+        transformInspector_Cp.OnDeselectTransform();
+    }
+
+    //--------------------------------------------------
+    public void OnSelectBall()
+    {
+        transformInspector_Cp.OnSelectTransform(transform);
+    }
+
+    //--------------------------------------------------
+    public void OnDeselectBall()
+    {
+        transformInspector_Cp.OnDeselectTransform();
     }
 
     //--------------------------------------------------

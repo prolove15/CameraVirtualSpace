@@ -117,7 +117,13 @@ public class CameraManager : MonoBehaviour
     //--------------------------------------------------
     public void OnDeselectCamera()
     {
-        
+        if(selectedCameraPlayer_Cp)
+        {
+            selectedCamera_Cp.depth = 1;
+            selectedCamera_Cp.enabled = false;
+        }
+
+        selectedCameraPlayer_Cp = null;
     }
 
     //--------------------------------------------------

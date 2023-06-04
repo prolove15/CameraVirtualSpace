@@ -34,6 +34,9 @@ public class Controller : MonoBehaviour
         
         [Space(5)]
         public VideoCaptureManager videoManager_Cp;
+
+        [Space(5)]
+        public TransformInspector transformInspector_Cp;
     }
 
     #endregion
@@ -73,8 +76,15 @@ public class Controller : MonoBehaviour
         get { return serializedCp.videoManager_Cp; }
     }
 
-    [Header("Camera Manager")]
-    public CameraManager cameraManager_Cp;
+    public CameraManager cameraManager_Cp
+    {
+        get { return serializedCp.cameraManager_Cp; }
+    }
+
+    public TransformInspector transformInspector_Cp
+    {
+        get { return serializedCp.transformInspector_Cp; }
+    }
 
     //-------------------------------------------------- private fields
     public SerializedComponents_Cs serializedCp;
@@ -125,6 +135,12 @@ public class Controller : MonoBehaviour
     public void Play()
     {
 
+    }
+
+    //--------------------------------------------------
+    public void SetTransformText()
+    {
+        transformInspector_Cp.SetTransformText();
     }
 
 }

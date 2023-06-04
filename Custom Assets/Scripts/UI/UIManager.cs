@@ -27,6 +27,9 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     InputField launchSpeedInputF_Cp;
 
+    [SerializeField]
+    public TransformInspector transformInspector_Tf;
+
     //-------------------------------------------------- public fields
     public GameState_En gameState;
 

@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 4745692055193446546}
   - component: {fileID: 4745692055190546610}
   - component: {fileID: 4745692055191677554}
-  - component: {fileID: 4745692055561917864}
   - component: {fileID: 2120761432559400734}
   - component: {fileID: 2648338783708161466}
+  - component: {fileID: 4745692055561917864}
+  - component: {fileID: 5100262808997498704}
   m_Layer: 0
   m_Name: TennisBall
   m_TagString: Untagged
@@ -86,41 +87,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4745692055561917864
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4745692055193613490}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a961995cedcfac146a43008994f76948, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_colliders: []
-  Selected:
-    m_PersistentCalls:
-      m_Calls: []
-  Unselected:
-    m_PersistentCalls:
-      m_Calls: []
-  BoundsObject: {fileID: 0}
-  BoundsType: 0
-  CustomBounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
-  CanTransform: 1
-  CanInspect: 1
-  CanDuplicate: 1
-  CanDelete: 1
-  CanRename: 1
-  CanCreatePrefab: 1
-  ShowSelectionGizmo: 1
-  CanSelect: 1
-  CanSnap: 1
-  AddColliders: 1
-  m_markAsDestroyed: 0
 --- !u!54 &2120761432559400734
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -150,3 +116,75 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.0395689
   m_Center: {x: -0.00000023841858, y: -0.00000011175871, z: 0}
+--- !u!114 &4745692055561917864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4745692055193613490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a961995cedcfac146a43008994f76948, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_colliders: []
+  Selected:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5100262808997498704}
+        m_TargetAssemblyTypeName: CameraPlayer, Assembly-CSharp
+        m_MethodName: OnSelectBall
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  Unselected:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5100262808997498704}
+        m_TargetAssemblyTypeName: CameraPlayer, Assembly-CSharp
+        m_MethodName: OnDeselectBall
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  BoundsObject: {fileID: 0}
+  BoundsType: 0
+  CustomBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  CanTransform: 1
+  CanInspect: 1
+  CanDuplicate: 1
+  CanDelete: 1
+  CanRename: 1
+  CanCreatePrefab: 1
+  ShowSelectionGizmo: 1
+  CanSelect: 1
+  CanSnap: 1
+  AddColliders: 1
+  m_markAsDestroyed: 0
+--- !u!114 &5100262808997498704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4745692055193613490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e73b08695e92e6246bb3c2ee3e37435c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isBall: 1

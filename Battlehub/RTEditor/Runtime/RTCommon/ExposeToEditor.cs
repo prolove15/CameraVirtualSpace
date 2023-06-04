@@ -216,7 +216,10 @@ namespace Battlehub.RTCommon
         public Vector3 LocalPosition
         {
             get { return transform.localPosition; }
-            set { transform.localPosition = value; }
+            set
+            {
+                transform.localPosition = value;
+            }
         }
 
         public Vector3 LocalScale

@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e73b08695e92e6246bb3c2ee3e37435c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameState: 0
+  isBall: 0
 --- !u!1001 &7339955701098743282
 PrefabInstance:
   m_ObjectHideFlags: 0

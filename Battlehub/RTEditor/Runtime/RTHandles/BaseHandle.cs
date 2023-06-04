@@ -932,6 +932,16 @@ namespace Battlehub.RTHandles
             }
         }
 
+        public void SetTransformPosition(Vector3 pos_pr)
+        {
+            Target.position = pos_pr;
+        }
+
+        public void SetTransformRotation(Quaternion rot_pr)
+        {
+            Target.rotation = rot_pr;
+        }
+
         protected virtual void UpdateOverride()
         {
             Transform target = Targets != null && Targets.Length > 0 && Targets[0] != null ? Targets[0] : null;
@@ -1026,11 +1036,23 @@ namespace Battlehub.RTHandles
                 }
             }
         }
-
+        
         protected virtual void SyncModelTransform()
         {
-            Model.transform.position = Position;
-            Model.transform.rotation = Rotation;
+            if(!Mathf.Approximately(Vector3.Distance(Model.transform.position, Position), 0f))
+            {
+                Model.transform.position = Position;
+
+                GameObject.FindWithTag("GameController").SendMessage("SetTransformText");
+            }
+            
+            if(!Mathf.Approximately(Quaternion.Angle(Model.transform.rotation, Rotation), 0f))
+            {
+                Model.transform.rotation = Rotation;
+
+                GameObject.FindWithTag("GameController").SendMessage("SetTransformText");
+            }
+
             SyncScale();
         }
 
